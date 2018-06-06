@@ -1,0 +1,4 @@
+* [[file:svm.org][svm]]
+* TODO svm算法实现 
+* smo 算法描述
+* smo 算法实现
