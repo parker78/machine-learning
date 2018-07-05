@@ -270,16 +270,6 @@ L = \sum_{i=1}^n \alpha_i - \dfrac {1}{2} \sum_{i=1,j=1}^n \alpha_iy_ix_i\alpha_
 
 还会用到一个[[http://www.cnblogs.com/zhangchaoyang/articles/2726873.html][KKT]]（Karush-Kuhn-Tucker)
 
-<latex>\[
-\left\{
-\begin{array}{lcl}
-  \\
-0 \le \alpha_i \le C \\
-\sum_{i=1}^n \alpha_iyi = 0 
-\end{array}
-\right.
-\]</latex>
-
 SMO算法推导：
 <latex>
 \[
@@ -347,17 +337,17 @@ E_i = f(x_i)-y_i \\
 \]
 </latex>
 
-可得<latex>\[ y_1 != y_2 \]<\latex> 时
+可得当<latex>\[ y_1 \ne y_2 \] </latex> 时
 
 下界：<latex>\[ L = \max( 0,\alpha_2^{old}-\alpha_1^{old}) \]</latex>
 
-上界：<latex>\[ L = \min( C,C+\alpha_2^{old}-\alpha_1^{old}) \]</latex>
+上界：<latex>\[ H = \min( C,C+\alpha_2^{old}-\alpha_1^{old}) \]</latex>
 
-可得<latex>\[ y_1 = y_2 \]<\latex> 时
+可得当<latex>\[ y_1 = y_2 \] </latex> 时
 
 下界：<latex>\[ L = \max( 0,\alpha_2^{old}+\alpha_1^{old} - C ) \]</latex>
 
-上界：<latex>\[ L = \min( C, \alpha_2^{old}+\alpha_1^{old} ) \]</latex>
+上界：<latex>\[ H = \min( C, \alpha_2^{old}+\alpha_1^{old} ) \]</latex>
 
 可以归纳出
 <latex>
