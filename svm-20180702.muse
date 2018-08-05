@@ -209,7 +209,29 @@ def train_a(x, label, a, used, length, step):
                         #a[j] = oldaj
     return a
 </example>
-
+上面这种实现，非常暴力，因此引入另一种实现方式，基于目标函数一次优化两个alpha变量，这两个alpha变量对应的label值是相反的，因为只有这样在才能取一对alpha都大于零并满足等式约束条件，推导过程这里就略去，和下面的SMO推导过程类似，但简化了不少。大体思路是由于一对alpha是线性关系，经过线性变换代入到L中，可以发现对于单独alpha是一个二次函数，求其导数为零，即可确定一对alpha的值。
+推导出的公式如下：
+    <latex>\[
+\left\{
+\begin{array}{lcl}
+\alpha_1 = \dfrac {y_1(\vec x_1 - \vec x_2)(tx_2 - \sum_{i=3}^n \alpha_i y_i \vec x_i)+y_1y_2-1}{-\vec x_1^2 -\vec x_2^2 + 2 \vec x_1 \vec x_2} \\
+s.t. \sum_{i=1}^n\alpha_i y_i=0 \\
+s.t. \alpha_1 y_1 +\alpha_2 y_2 = t
+\end{array}
+\right.
+\]</latex>
+<example>
+def calculate_alpha_i(i,j):
+    return -1*(label[i]*mul_i_j(sub_i_j(x[i],x[j]),sub_i_j(t_mul_x(get_t(i,j),x[j]),sum_c(i,j)))+label[i]*label[j]-1)/(mul_i_j(x[i],x[i])+mul_i_j(x[j],x[j])-2*mul_i_j(x[i],x[j]))
+def cal_alpha():
+    i,j = random_get()
+    while i!=-1 and j!=-1:
+        alpha_i=calculate_alpha_i(i,j)
+        alpha_j=(get_t(i,j)-alpha_i*label[i])*label[j]
+        alpha[i]=alpha_i
+        alpha[j]=alpha_j
+        i,j=random_get()
+</example>
 源代码上传到 GitHub上 [[https://github.com/parker78/machine-learning/blob/master/svm-learn.ipynb][svm python实现]]
 
 * SMO 算法推导
